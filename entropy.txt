@@ -1,0 +1,218 @@
+In this guidance, we have chosen to use Shannon’s estimate of the entropy in ordinary
+English text as the starting point to estimate the entropy of user-selected passwords. It is a
+big assumption that passwords are quite similar to other English text, and it would be
+better if we had a large body of actual user selected passwords, selected under different
+composition rules, to work from, but we have no such resource, and it is at least plausible
+to use Shannon’s work for a “ballpark” estimate. Readers are cautioned against
+interpreting the following rules as anything more than a very rough rule of thumb method
+to be used for the purposes of E-authentication.
+Shannon conducted experiments where he gave people strings of English text and asked
+them to guess the next character in the string. From this he estimated the entropy of each
+successive character. He used a 27-character alphabet, the ordinary English lower case
+letters plus the space.
+In the following discussion we assume that passwords are user selected from the normal
+keyboard alphabet of 94 printable characters, and are at least 6-characters long. Since
+Shannon used a 27 character alphabet it may seem that the entropy of user selected
+passwords would be much larger, however the assumption here is that users will choose
+passwords that are almost entirely lower case letters, unless forced to do otherwise, and
+that rules that force them to include capital letters or non-alphabetic characters will
+generally be satisfied in the simplest and most predictable manner, often by putting a
+capital letter at the start (as we do in ordinary English) and punctuation or special
+characters at the end, or by some simple substitution, such as $ for the letter “s.”
+Moreover rules that force passwords to appear to be highly random will be
+counterproductive because they will make the passwords hard to remember. Users will
+then write the passwords down and keep them in a convenient (that is insecure) place,
+such as pasted on their monitor. Therefore it is reasonable to start from estimates of the
+entropy of simple English text, assuming only a 27-symbol alphabet.
+Shannon observed that, although there is a non-uniform probability distribution of letters,
+it is comparatively hard to predict the first letter of an English text string, but, given the
+first letter, it is much easier to guess the second and given the first two the third is easier
+still, and so on. He estimated the entropy of the first symbol at 4.6 to 4.7 bits, declining
+to on the order of about 1.5 bits after 8 characters. Very long English strings (for
+example the collected works of Shakespeare) have been estimated to have as little as .4
+bits of entropy per character.
+ Similarly, in a string of words, it is harder to predict the
+first letter of a word than the following letters, and the first letter carries about 6 times
+more information than the 5th or later letters.
+
+An attacker attempting to find a password will try the most likely chosen passwords first.
+Very extensive dictionaries of passwords have been created for this purpose. Because
+users often choose common words or very simple passwords systems commonly impose
+rules on password selection in an attempt to prevent the choice of “bad” passwords and
+improve the resistance of user chosen passwords to such dictionary or rule driven
+password guessing attacks. For the purposes of this guidance we break those rules into
+two categories:
+
+    1. dictionary tests that test prospective passwords against an “extensive dictionary
+test” of common words and commonly used passwords, then disallow passwords
+found in the dictionary. We do not precisely define a dictionary test, since it must
+be tailored to the password length and rules, but it should prevent selection of
+passwords that are simple transformations of any one word found in an
+unabridged English dictionary, and should include at least 50,000 words. There is
+no intention to prevent selection of long passwords (16 characters or more based
+on phrases) and no need to impose a dictionary test on such long passwords of 16
+characters or more.
+    2. composition rules that typically require users to select passwords that include
+lower case letters, upper case letters, and non-alphabetic symbols (e.g.;:
+“~!@#$%^&*()_-+={}[]|\:;’<,>.?/1234567890”).
+
+Either dictionary tests or composition rules eliminate some passwords and reduce the
+space that an adversary must test to find a password in a guessing or exhaustion attack.
+However they can eliminate many obvious choices and therefore we believe that they
+generally improve the “practical entropy” of passwords, although they reduce the work
+required for a truly exhaustive attack. The dictionary check requires a dictionary of at
+least 50,000 legal passwords chosen to exclude commonly selected passwords. Upper
+case letters in candidate passwords converted to lower case before comparison.
+
+Table A.1 provides a rough estimate of the average entropy of user chosen passwords as a
+function of password length. Estimates are given for user selected passwords drawn from
+the normal keyboard alphabet that are not subject to further rules, passwords subject to a
+dictionary check to prevent the use of common words or commonly chosen passwords
+and passwords subject to both composition rules and a dictionary test. In addition an
+estimate is provided for passwords or PINs with a ten-digit alphabet. The table also
+shows the calculated entropy of randomly selected passwords and PINs. The values of
+Table A.1 should not be taken as accurate estimates of absolute entropy, but they do
+provide a rough relative estimate of the likely entropy of user chosen passwords, and
+some basis for setting a standard for password strength.
+
+The logic of the Table A.1 is as follows for user-selected passwords drawn from the full
+keyboard alphabet:
+
+    • the entropy of the first character is taken to be 4 bits;
+    • the entropy of the next 7 characters are 2 bits per character; this is roughly
+consistent with Shannon’s estimate that “when statistical effects extending over
+not more than 8 letters are considered the entropy is roughly 2.3 bits per
+character;”
+    • for the 9th through the 20th character the entropy is taken to be 1.5 bits per
+character;
+    • for characters 21 and above the entropy is taken to be 1 bit per character;
+    • A “bonus” of 6 bits of entropy is assigned for a composition rule that requires
+both upper case and non-alphabetic characters. This forces the use of these
+characters, but in many cases thee characters will occur only at the beginning or
+the end of the password, and it reduces the total search space somewhat, so the
+benefit is probably modest and nearly independent of the length of the password;
+    • A bonus of up to 6 bits of entropy is added for an extensive dictionary check. If
+the attacker knows the dictionary, he can avoid testing those passwords, and will
+in any event, be able to guess much of the dictionary, which will, however, be the
+most likely selected passwords in the absence of a dictionary rule. The
+assumption is that most of the guessing entropy benefits for a dictionary test
+accrue to relatively short passwords, because any long password that can be
+remembered must necessarily be a “pass-phrase” composed of dictionary words,
+so the bonus declines to zero at 20 characters.
+
+For user selected PINs the assumption of Table A.1 is that such pins are subjected at least
+to a rule that prevents selection of all the same digit, or runs of digits (e.g., “1234” or
+“76543”). This column of Table A.1 is at best a very crude estimate, and experience with
+password crackers suggests, for example, that users will often preferentially select simple
+number patterns and recent dates, for example their year of birth.
+
+A.2.2 Min Entropy Estimates
+
+Experience suggests that a significant share of users will choose passwords that are very
+easily guessed (“password” may be the most commonly selected password, where it is
+allowed). Suppose, for example, that one user in 1,000 chooses one of the 2 most
+common passwords, in a system that allows a user 3 tries before locking a password. An
+attacker with a list of user names, who knows the two most commonly chosen passwords
+can use an automated attack to try those 2 passwords with each user name, and can
+expect to find at least one password about half the time by trying 700 usernames with
+those two passwords. Clearly this is a practical attack if the only goal is to get access to
+the system, rather than to impersonate a single selected user. This is usually too
+dangerous a possibility to ignore.
+
+We know of no accurate general way to estimate the actual min-entropy of user chosen
+passwords, without examining in detail the passwords that users actually select under the
+rules of the password system, however it is reasonable to argue that testing user chosen
+passwords against a sizable dictionary of otherwise commonly chosen legal passwords,
+and disallowing matches, will raise the min entropy of a password. A dictionary test is
+specified here that is intended to ensure at least 10-bits of min entropy. That test is:
+
+    • Upper case letters in passwords are converted to entirely lower case and compared
+to a dictionary of at least 50,000 commonly selected otherwise legal passwords
+and rejected if they match any dictionary entry, and
+    • Passwords that are detectable permutations of the username are not allowed.
+
+This is estimated to ensure at least 10-bits of min entropy. Other means may be
+substituted to ensure at least 10 bits of min-entropy. User chosen passwords of at least 15
+characters are assumed to have at least 10-bits of min-entropy. For example a user might
+be given a short randomly to character randomly chosen string (two randomly chosen
+characters from a 94-bit alphabet have about 13 bits of entropy). A password, for
+example might combine short system selected random elements, to ensure 10-bits of minentropy,
+with a longer user-chosen password.
+
+A.2 Other Types of Passwords
+
+Some password systems require a user to memorize a number of images, such as faces.
+Users are then typically presented with successive fields of several images (typically 9 at
+a time), each of which contains one of the memorized images. Each selection represents
+approximately 3.17 bits of entropy. If such a system used five rounds of memorized
+images, then the entropy of system would be approximately 16 bits. Since this is
+randomly selected password the guessing entropy and min-entropy are both the same
+value.
+
+It is possible to combine randomly chosen and user chosen elements into a single
+composite password. For example a user might be given a short randomly selected value
+to ensure min-entropy to use in combination with a user chosen password string. The
+random component might be images or a character string.
+
+A.3 Examples
+
+The intent of this guidance is to allow designers and implementers flexibility in designing
+password authentication systems. System designers can trade off password length, rules
+and measures imposed to limit the number of guesses an adversary can attempt.
+The approach of this recommendation to password strength is that it is a measure of the
+probability that an attacker, who knows nothing but a user’s name, can discover the
+user’s password by means of “in-band” password guessing attack. That is the attacker
+attempts to try different passwords until he/she authenticates successfully. At each level
+given below, the maximum probability that, over the life of the password, an attacker
+with no a priori knowledge of the password will succeed in an in-band password
+guessing attack is:
+
+    1. Level 1- 2-10 (1 in 1024)
+    2. Level 2 - 2-14 (1 in 16,384)
+
+Consider a system that assigns subscribers 6 character passwords, randomly selected
+from an alphabet of 94 printable keyboard characters. From Table A.1 we see that such a
+password is considered to have 39.5 bits of entropy. If the authentication system limits
+the number of possible unsuccessful authentication trials to 239.5/214 = 225.5 trials, the
+password strength requirements of Level 2 are satisfied. The authentication system
+could, for example, simply maintain a counter that locked the password after
+225.5 (about forty-five million) total unsuccessful trials. An alternative scheme would be to lock out
+the claimant for a minute after three successive failed authentication attempts. Such a
+lock out would suffice to limit automated attacks to 3 trials a minute and it would take
+about 90 years to carryout 225.5 trials. If the system required that password authentication
+attempts be locked for one minute after three unsuccessful trials and that passwords be
+changed every ten years, then the targeted password guessing attack requirements of
+Level 2 would be comfortably satisfied. Because the min-entropy of a randomly chosen
+password is the same as the guessing entropy, the min-entropy requirements of level two
+are met.
+
+Consider a system that used:
+    • a minimum of 8 character passwords, selected by subscribers from an alphabet of
+94 printable characters,
+    • required subscribers to include at least one upper case letter, one lower case letter,
+one number and one special character, and;
+    • Used a dictionary to prevent subscribers from including common words and
+prevented permutations of the username as a password.
+
+Such a password would meet the composition and dictionary rules for user-selected
+passwords in Appendix A, and from Table A.1 we estimate guessing entropy at 30 bits.
+Any system that limited a subscriber to less than 216 (about 65,000) failed authentication
+attempts over the life of the password would satisfy the targeted guessing attack
+requirements of Level 2. For example, consider a system that required passwords to be
+changed every two years and limited trials by locking an account for 24 hours after 6
+successive failed authentication attempts. An attacker could get 2 × 365 × 6 = 4,380
+attempts during the life of the password and this would easily meet the targeted attack
+requirements of Level 2. Because of the dictionary test, this would also meet the minentropy
+rules for Level 2.
+
+It will be very hard to impose dictionary rules on longer passwords, and many people
+may prefer to memorize a relatively long “pass-phrases” of words, rather than a shorter,
+more arbitrary password. An example might be: “IamtheCapitanofthePina4”.
+
+As an alternative to imposing some arbitrary specific set of rules, an authentication
+system might grade user passwords, using the rules stated above, and accept any that
+meet some minimum entropy standard. For example, suppose passwords with at least 24-
+bits of entropy were required. We can calculate the entropy estimate of
+“IamtheCapitanofthePina4” by observing that the string has 23 characters and would
+satisfy a composition rule requiring upper case and non-alphabetic characters. Table A.1
+estimates 45 bits of guessing entropy for this password.

@@ -1,0 +1,12 @@
+Password strength is determined with this chart, which might be a bit of a stretch for a non-critical password:
+< 28 bits = Very Weak; might keep out family members
+28 - 35 bits = Weak; should keep out most people, often good for desktop login passwords
+36 - 59 bits = Reasonable; fairly secure passwords for network and company passwords
+60 - 127 bits = Strong; can be good for guarding financial information
+128+ bits = Very Strong; often overkill
+
+http://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-63ver1.0.2.pdf
+
+brute force vs dictionary vs diceware
+
+get typical ops per second
